@@ -20,6 +20,7 @@ contract MSCollectible is ERC721Enumerable, ERC721URIStorage, Ownable {
     uint256[MAX_SUPPLY] private RANDOMNESS;
 
     mapping(address => bool) public isApprovedAddress;
+    address public MARKETADDRESS;
     
     constructor(string memory baseURI)
     ERC721("NFT MSSquad", "AKLRS") {
@@ -100,6 +101,12 @@ contract MSCollectible is ERC721Enumerable, ERC721URIStorage, Ownable {
         require(balance > 0, "No ether left to withdraw");
         (bool success, ) = (msg.sender).call{value: balance}("");
         require(success, "Transfer failed.");
+    }
+
+    // list tokens to market place for sell
+    function setMarketPlace(address marketAddress) external onlyOwner {
+        MARKETADDRESS = marketAddress;
+        setApprovalForAll(MARKETADDRESS, true);
     }
     
     // below are the functions override to avoid conflict from parent contracts
