@@ -22,7 +22,7 @@ describe("NFTMarket Test", function() {
         let listingPrice = await marketContract.getListingPrice()
         listingPirce = listingPrice.toString()
 
-        const auctionPrice = ethers.utils.parseUnits('100', 'ether')
+        const auctionPrice = ethers.utils.parseUnits('0.01', 'ether')
 
         await marketContract.createMarketItem(nftAddress, 0, auctionPrice, {value: listingPrice})
         await marketContract.createMarketItem(nftAddress, 6, auctionPrice, {value: listingPrice})
@@ -31,7 +31,19 @@ describe("NFTMarket Test", function() {
         
         await marketContract.connect(buyerAddress).createMarketSale(nftAddress, 1, {value: auctionPrice})
 
-        const items = await marketContract.fetchMarketItems()
+        let items = await marketContract.fetchMarketItems()
+
+        items = await Promise.all(items.map(async i => {
+            const tokenURI = await nftAddress.tokenURI(i.tokenId)
+            let item = {
+                price: i.price.toString(),
+                tokenId: i.tokenId.toString(),
+                seller: i.seller,
+                ower: i.ower,
+                tokenURI
+            }
+            return item
+        }))
 
         console.log('items: ', items)
 

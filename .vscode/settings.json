@@ -1,0 +1,4 @@
+{
+    "open-in-browser.default": "chrome",
+    "solidity.defaultCompiler": "localFile"
+}
