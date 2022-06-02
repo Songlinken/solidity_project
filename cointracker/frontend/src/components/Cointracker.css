@@ -1,0 +1,26 @@
+.main-app {
+    test-align: center;
+    margin: 100px;
+}
+
+.cta-button {
+    padding: 15px;
+    border: none;
+    border-radius: 12px;
+    min-width: 250px;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.connect-wallet-button {
+    background-color: blueviolet;
+}
+
+.get-balance-button {
+    background-color: red;
+}
+
+.get-balance-input {
+    background-color: rgb(76, 0, 255);
+}
